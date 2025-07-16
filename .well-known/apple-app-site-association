@@ -1,0 +1,13 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "ZSYQ23KCKB.com.ennowell.building-management-client-app.dev",
+                "paths": [
+                    "/link/*"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>開啟 App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>正在嘗試開啟 App...</h1>
+    <p>若未成功開啟，將自動導向下載頁</p>
+
+    <script>
+        const userAgent = navigator.userAgent.toLowerCase();
+        const isAndroid = userAgent.includes("android");
+        const isiOS = /iphone|ipad|ipod/.test(userAgent);
+
+        const appLink = "https://ann123-321.github.io/link/demo"; // ✅ Android App Link
+        const iosScheme = "com.ennowell.building-manager-client.com.dev://dashboard"; // ✅ iOS Scheme
+        const iosStore = "https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610";
+        const androidStore = "https://play.google.com/store/apps/details?id=com.ennowell.building_management_client_app.dev";
+
+        const fallback = isiOS ? iosStore : isAndroid ? androidStore : "/";
+
+        let hidden = false;
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) hidden = true;
+        });
+
+        if (isiOS) {
+            window.location = iosScheme;
+        } else if (isAndroid) {
+            window.location = appLink;
+        }
+
+        setTimeout(() => {
+            if (!hidden) {
+                window.location = fallback;
+            }
+        }, 2500);
+    </script>
+</body>
+
+</html>

@@ -1,29 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 
 <head>
-    <title>開啟應用程式</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>打開 App</title>
 </head>
 
 <body>
-    <h1>請開啟 App</h1>
-    <p>若未自動開啟，請前往 <a href="https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610">App Store</a> 下載</p>
-</body>
+    <h1>打開應用程式</h1>
+    <button onclick="openApp()">點我開啟 App</button>
+    <p>若未成功開啟，請前往
+        <a href="https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610">App Store</a> 或
+        <a href="https://play.google.com/apps/internaltest/4701656585058484161">Google Play</a>
+    </p>
 
-<script>
-    const now = Date.now();
-    const scheme = 'com.ennowell.building-manager-client.com.dev://dashboard'; // ← 這裡可自訂 path
-    const fallback = 'https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610'; // ← 改成你 App 的真實下載連結
+    <script>
+        let pageHidden = false;
 
-    window.location = scheme;
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                pageHidden = true;
+            }
+        });
 
-    setTimeout(() => {
-        if (Date.now() - now < 5000) {
-            window.location = fallback;
+        function openApp() {
+            const isAndroid = /android/i.test(navigator.userAgent);
+            const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+            const schemeURL = 'com.ennowell.building-manager-client.com.dev://dashboard'; // 你的 scheme
+            const iosStore = 'https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610'; // 替換成你的 iOS App Store 連結
+            const androidStore = 'https://play.google.com/apps/internaltest/4701656585058484161'; // 替換成你的 Android App 連結
+            const fallback = isiOS ? iosStore : isAndroid ? androidStore : '/';
+
+            pageHidden = false;
+            window.location = schemeURL;
+
+            setTimeout(() => {
+                if (!pageHidden) {
+                    window.location = fallback;
+                }
+            }, 2200); // 可依設備延遲調整時間（建議 2000～2500 毫秒）
         }
-    }, 1500);
-</script>
+    </script>
+</body>
 
 </html>

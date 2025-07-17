@@ -4,16 +4,37 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>打開 App</title>
+    <title>正在開啟 App...</title>
+    <style>
+        #fallback {
+            display: none;
+            margin-top: 20px;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+
+        a.button {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 20px;
+            background-color: #007aff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>打開應用程式</h1>
-    <button onclick="openApp()">點我開啟 App</button>
-    <p>若未成功開啟，請前往
-        <a href="https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610">App Store</a> 或
-        <a href="https://play.google.com/apps/internaltest/4701656585058484161">Google Play</a>
-    </p>
+    <h1>正在嘗試開啟 App...</h1>
+    <div id="fallback">
+        <p>若未成功開啟 App，請選擇下載：</p>
+        <a id="storeLink" class="button" href="#">前往下載</a>
+    </div>
 
     <script>
         let pageHidden = false;
@@ -24,24 +45,29 @@
             }
         });
 
-        function openApp() {
-            const isAndroid = /android/i.test(navigator.userAgent);
-            const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        function tryOpenApp() {
+            const ua = navigator.userAgent.toLowerCase();
+            const isAndroid = ua.includes('android');
+            const isiOS = /iphone|ipad|ipod/.test(ua);
 
-            const schemeURL = 'com.ennowell.building-manager-client.com.dev://dashboard'; // 你的 scheme
-            const iosStore = 'https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610'; // 替換成你的 iOS App Store 連結
-            const androidStore = 'https://play.google.com/apps/internaltest/4701656585058484161'; // 替換成你的 Android App 連結
-            const fallback = isiOS ? iosStore : isAndroid ? androidStore : '/';
+            const schemeURL = 'com.ennowell.building-manager-client.com.dev://dashboard';
+            const iosStore = 'https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610';
+            const androidStore = 'https://play.google.com/apps/internaltest/4701656585058484161';
+            const fallbackURL = isiOS ? iosStore : (isAndroid ? androidStore : '/');
 
-            pageHidden = false;
+            document.getElementById('storeLink').href = fallbackURL;
+
             window.location = schemeURL;
 
             setTimeout(() => {
                 if (!pageHidden) {
-                    window.location = fallback;
+                    document.getElementById('fallback').style.display = 'block';
                 }
-            }, 2200); // 可依設備延遲調整時間（建議 2000～2500 毫秒）
+            }, 2200);
         }
+
+        // 自動執行
+        window.onload = tryOpenApp;
     </script>
 </body>
 

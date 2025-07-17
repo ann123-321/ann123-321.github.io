@@ -1,13 +1,15 @@
 [
     {
         "relation": [
-            "delegate_permission/common.handle_all_urls"
+            "delegate_permission/common.handle_all_urls",
+            "delegate_permission/common.get_login_creds"
         ],
         "target": {
             "namespace": "android_app",
             "package_name": "com.ennowell.building_management_client_app.dev",
             "sha256_cert_fingerprints": [
-                "A9:10:03:86:E0:2F:0A:54:05:6A:99:60:BA:95:2C:BC:21:FE:B2:29:9F:62:9A:3E:F5:B9:5C:85:08:9B:70:71"
+                "A9:10:03:86:E0:2F:0A:54:05:6A:99:60:BA:95:2C:BC:21:FE:B2:29:9F:62:9A:3E:F5:B9:5C:85:08:9B:70:71",
+                "E4:9D:10:D9:61:BA:F1:B4:D6:D2:06:B4:85:63:09:58:AB:11:F9:20:30:EC:6E:84:DF:F9:BB:7A:34:F6:C7:00"
             ]
         }
     }

@@ -9,7 +9,21 @@
 
 <body>
     <h1>請開啟 App</h1>
-    <p>若未自動開啟，請前往 <a href="https://apps.apple.com/app/idXXXXXXXX">App Store</a> 下載</p>
+    <p>若未自動開啟，請前往 <a href="https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610">App Store</a> 下載</p>
 </body>
+
+<script>
+    const now = Date.now();
+    const scheme = 'com.ennowell.building-manager-client.com.dev://dashboard'; // ← 這裡可自訂 path
+    const fallback = 'https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610'; // ← 改成你 App 的真實下載連結
+
+    window.location = scheme;
+
+    setTimeout(() => {
+        if (Date.now() - now < 2000) {
+            window.location = fallback;
+        }
+    }, 1500);
+</script>
 
 </html>

@@ -49,7 +49,7 @@
             const ua = navigator.userAgent.toLowerCase();
             const isAndroid = ua.includes('android');
             const isiOS = /iphone|ipad|ipod/.test(ua);
-            const appLink = 'https://ann123-321.github.io/link/demo';
+
             const schemeURL = 'com.ennowell.building-manager-client.com.dev://dashboard';
             const iosStore = 'https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610';
             const androidStore = 'https://play.google.com/apps/internaltest/4701656585058484161';
@@ -57,7 +57,7 @@
 
             document.getElementById('storeLink').href = fallbackURL;
 
-            window.location = appLink;
+            window.location = schemeURL;
 
             setTimeout(() => {
                 if (!pageHidden) {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>開啟 App</title>
+</head>
+
+<body>
+    <p>正在開啟 App...</p>
+    <script>
+        const deepLink = 'https://ann123-321.github.io/link/demo';
+        const fallback = 'https://play.google.com/store/apps/details?id=com.ennowell.building_management_client_app.dev';
+        let hidden = false;
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) hidden = true;
+        });
+
+        window.location = deepLink;
+
+        setTimeout(() => {
+            if (!hidden) {
+                window.location = fallback;
+            }
+        }, 2500);
+    </script>
+</body>
+
+</html>

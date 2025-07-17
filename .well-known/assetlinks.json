@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.ennowell.building_management_client_app.dev",
+            "sha256_cert_fingerprints": [
+                "A9:10:03:86:E0:2F:0A:54:05:6A:99:60:BA:95:2C:BC:21:FE:B2:29:9F:62:9A:3E:F5:B9:5C:85:08:9B:70:71"
+            ]
+        }
+    }
+]

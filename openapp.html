@@ -41,8 +41,8 @@
             }, 2000);
 
             try {
-                if (isiOS) { toStore(); location.href = schemeUrl; }
-                else if (isAndroid) { toStore(); location.href = androidIntent; }
+                if (isiOS) { location.href = schemeUrl; toStore(); }
+                else if (isAndroid) { location.href = androidIntent; toStore(); }
                 else { document.write('Please open this on your phone.'); }
             } catch (e) { toStore(); }
         })();

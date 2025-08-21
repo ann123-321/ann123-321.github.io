@@ -25,10 +25,10 @@
 
             // iOS / Android App 自訂的 **scheme**
             // ⚠️ 改成你在 app 設定的 scheme，例如 com.ennowell.building-management-client-app.dev://
-            const schemeUrl = `com.ennowell.building-management-client-app.dev://${deepPath.replace(/^\//, '')}`;
+            const schemeUrl = `ennobmdev://${deepPath.replace(/^\//, '')}`;
 
             // Android intent link
-            const androidIntent = `intent://${deepPath.replace(/^\//, '')}#Intent;scheme=com.ennowell.building-management-client-app.dev;package=com.ennowell.building_management_client_app.dev;S.deep=${encodeURIComponent(deepPath)};end`;
+            const androidIntent = `intent://${deepPath.replace(/^\//, '')}#Intent;scheme=ennobmdev;package=com.ennowell.building_management_client_app.dev;S.deep=${encodeURIComponent(deepPath)};end`;
 
             const ua = navigator.userAgent;
             const isiOS = /iPhone|iPad|iPod/i.test(ua);

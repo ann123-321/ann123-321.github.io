@@ -19,33 +19,33 @@
     <p>若未成功開啟，將自動導向下載頁</p>
 
     <script>
-        const userAgent = navigator.userAgent.toLowerCase();
-        const isAndroid = userAgent.includes("android");
-        const isiOS = /iphone|ipad|ipod/.test(userAgent);
+        (function () {
+            const params = new URLSearchParams(location.search);
+            const deepPath = params.get('p') || '/';
 
-        const appLink = "https://ann123-321.github.io/link/demo";
-        const iosScheme = "com.ennowell.building-manager-client.com.dev://dashboard";
-        const iosStore = "https://apps.apple.com/us/app/%E6%A8%BA%E5%BA%B7e-life/id6743686610";
-        const androidStore = "https://play.google.com/store/apps/details?id=com.ennowell.building_management_client_app.dev";
+            // iOS / Android App 自訂的 **scheme**
+            // ⚠️ 改成你在 app 設定的 scheme，例如 com.ennowell.building-management-client-app.dev://
+            const schemeUrl = `com.ennowell.building-management-client-app.dev://${deepPath.replace(/^\//, '')}`;
 
-        const fallback = isiOS ? iosStore : isAndroid ? androidStore : "/";
+            // Android intent link
+            const androidIntent = `intent://${deepPath.replace(/^\//, '')}#Intent;scheme=com.ennowell.building-management-client-app.dev;package=com.ennowell.building_management_client_app.dev;S.deep=${encodeURIComponent(deepPath)};end`;
 
-        let hidden = false;
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) hidden = true;
-        });
+            const ua = navigator.userAgent;
+            const isiOS = /iPhone|iPad|iPod/i.test(ua);
+            const isAndroid = /Android/i.test(ua);
 
-        if (isiOS) {
-            window.location = iosScheme;
-        } else if (isAndroid) {
-            window.location = appLink;
-        }
+            // App Store / Play Store fallback
+            const toStore = () => setTimeout(() => {
+                if (isiOS) location.href = 'https://apps.apple.com/app/id1234567890';   // ⚠️ 改成你的 App Store ID
+                else if (isAndroid) location.href = 'https://play.google.com/store/apps/details?id=com.ennowell.building_management_client_app.dev';
+            }, 1200);
 
-        setTimeout(() => {
-            if (!hidden) {
-                window.location = fallback;
-            }
-        }, 2500);
+            try {
+                if (isiOS) { toStore(); location.href = schemeUrl; }
+                else if (isAndroid) { toStore(); location.href = androidIntent; }
+                else { document.write('Please open this on your phone.'); }
+            } catch (e) { toStore(); }
+        })();
     </script>
 </body>
 

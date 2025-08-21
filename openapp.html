@@ -38,7 +38,7 @@
             const toStore = () => setTimeout(() => {
                 if (isiOS) location.href = 'https://apps.apple.com/app/id1234567890';   // ⚠️ 改成你的 App Store ID
                 else if (isAndroid) location.href = 'https://play.google.com/store/apps/details?id=com.ennowell.building_management_client_app.dev';
-            }, 1200);
+            }, 2000);
 
             try {
                 if (isiOS) { toStore(); location.href = schemeUrl; }

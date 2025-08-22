@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <h1>正在嘗試開啟 App...</h1>
+    <h1>正在嘗試開啟 Dev App...</h1>
     <p>若未成功開啟，將自動導向下載頁</p>
 
     <script>
@@ -25,10 +25,10 @@
 
             // iOS / Android App 自訂的 **scheme**
             // ⚠️ 改成你在 app 設定的 scheme，例如 com.ennowell.building-management-client-app.dev://
-            const schemeUrl = `ennobm://${deepPath.replace(/^\//, '')}`;
+            const schemeUrl = `ennobmdev://${deepPath.replace(/^\//, '')}`;
 
             // Android intent link
-            const androidIntent = `intent://${deepPath.replace(/^\//, '')}#Intent;scheme=ennobm;package=com.ennowell.building_management_client_app;S.deep=${encodeURIComponent(deepPath)};end`;
+            const androidIntent = `intent://${deepPath.replace(/^\//, '')}#Intent;scheme=ennobmdev;package=com.ennowell.building_management_client_app.dev;S.deep=${encodeURIComponent(deepPath)};end`;
 
             const ua = navigator.userAgent;
             const isiOS = /iPhone|iPad|iPod/i.test(ua);
@@ -38,7 +38,7 @@
             const toStore = () => setTimeout(() => {
                 if (isiOS) location.href = 'https://apps.apple.com/app/id1234567890';   // ⚠️ 改成你的 App Store ID
                 else if (isAndroid) location.href = 'https://play.google.com/store/apps/details?id=com.ennowell.building_management_client_app.dev';
-            }, 2000);
+            }, 3000);
 
             try {
                 if (isiOS) { location.href = schemeUrl; toStore(); }

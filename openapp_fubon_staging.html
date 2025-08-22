@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>開啟 App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>正在嘗試開啟 FUBON STAGING App...</h1>
+    <p>若未成功開啟，將自動導向下載頁</p>
+
+    <script>
+        (function () {
+            const params = new URLSearchParams(location.search);
+            const deepPath = params.get('p') || '/';
+
+            // iOS / Android App 自訂的 **scheme**
+            // ⚠️ 改成你在 app 設定的 scheme，例如 com.ennowell.building-management-client-app.dev://
+            const schemeUrl = `fubonbmstaging://${deepPath.replace(/^\//, '')}`;
+
+            // Android intent link
+            const androidIntent = `intent://${deepPath.replace(/^\//, '')}#Intent;scheme=fubonbmstaging;package=com.fubon.building_management_client_app.staging;S.deep=${encodeURIComponent(deepPath)};end`;
+
+            const ua = navigator.userAgent;
+            const isiOS = /iPhone|iPad|iPod/i.test(ua);
+            const isAndroid = /Android/i.test(ua);
+
+            // App Store / Play Store fallback
+            const toStore = () => setTimeout(() => {
+                if (isiOS) location.href = 'https://apps.apple.com/app/id1234567890';   // ⚠️ 改成你的 App Store ID
+                else if (isAndroid) location.href = 'https://play.google.com/store/apps/details?id=com.ennowell.building_management_client_app.dev';
+            }, 3000);
+
+            try {
+                if (isiOS) { location.href = schemeUrl; toStore(); }
+                else if (isAndroid) { location.href = androidIntent; toStore(); }
+                else { document.write('Please open this on your phone.'); }
+            } catch (e) { toStore(); }
+        })();
+    </script>
+</body>
+
+</html>
